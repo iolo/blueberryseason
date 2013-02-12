@@ -1,97 +1,80 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-  <title>BackbonePress</title>
+  <meta charset="utf8"/>
+  <title>NoBoard with Backbone.js</title>
   <link rel="stylesheet" type="text/css" href="css/app.css"/>
 </head>
 <body>
 
-<h1>BackbonePress</h1>
-
 <div id="contents"></div>
 
-<script src="lib/jquery-1.9.1.min.js"></script>
-<script src="lib/underscore-min.js"></script>
-<script src="lib/backbone-min.js"></script>
-<script src="lib/backbone.localStorage.js"></script>
+<script src="/lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="/lib/underscore/underscore-min.js"></script>
+<script src="/lib/backbone/backbone-min.js"></script>
 <script src="js/app.js"></script>
 
-<script type="text/template" id="postsTpl">
+<script type="text/template" id="postListTpl">
+  <h1>NoBoard - posts</h1>
+
   <p><%= posts.length %> posts</p>
 
-  <div class="postList">
+  <table border="1">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>title</th>
+      <th>author</th>
+      <th>modified</th>
+    </tr>
+    </thead>
+    <tbody>
     <% _.each(posts, function (post) { %>
-    <div class="post">
-      <h3><a href="#/posts/<%= post.id %>"><%= post.title %></a></h3>
-
-      <p class="content"><%= post.content.substring(100) %></p>
-
-      <p class="date"><%= post.date %></p>
-
-      <p class="author"><%= post.author %></p>
-
-      <p class="comments"><%= post.comments.length %> comments</p>
-    </div>
+    <tr>
+      <td><a href="#posts/<%= post.id %>"><%= post.id %></a></td>
+      <td><a href="#posts/<%= post.id %>"><%= post.title %></a></td>
+      <td><%= post.author %></td>
+      <td><%= post.modified %></td>
+    </tr>
     <% }) %>
-    <div>
-      <button id="postNewBtn">New Post</button>
-    </div>
+    </tbody>
+  </table>
+
+  <div>
+    <a href="#posts/new">New Post</a>
   </div>
 </script>
 
-<script type="text/template" id="postTpl">
-  <div class="postShow">
+<script type="text/template" id="postShowTpl">
+  <h1>NoBoard - post - <%= post.id %></h1>
+
+  <div>
     <h3><%= post.title %></h3>
 
-    <p class="comment"><%= post.content %></p>
+    <p>created: <%= post.created %></p>
 
-    <p class="date"><%= post.date %></p>
+    <p>modified: <%= post.modified %></p>
 
-    <p class="author"><%= post.author %></p>
+    <p>author: <%= post.author %></p>
 
-    <div>
-      <button id="postEditBtn">Edit</button>
-      <button id="postDeleteBtn">Delete</button>
-    </div>
+    <p>title: <%= post.title %></p>
 
-    <div class="comments">
-      <p><%= post.comments.length %> comments</p>
+    <p>content: <%= post.content %></p>
+  </div>
 
-      <% _.each(post.comments, function (comment) { %>
-      <div class="comment">
-        <p class="content"><%=comment.content%></p>
-
-        <p class="date"><%= comment.date %></p>
-
-        <p class="author"><%=comment.author%></p>
-
-        <div>
-          <button id="commentEditBtn">Edit</button>
-          <button id="commentDeleteBtn">Delete</button>
-        </div>
-      </div>
-      <% }) %>
-
-      <div class="commentForm">
-        <div>
-          <label for="commentAuthorText">Author:</label>
-          <input id="commentAuthorText" type="text" value=""/>
-        </div>
-
-        <div>
-          <textarea id="commentContentText" class="comment"></textarea>
-        </div>
-
-        <div>
-          <button id="commentSubmitBtn">Submit</button>
-        </div>
-      </div>
-    </div>
+  <div>
+    <a href="#posts/<%= post.id %>/edit">Edit</a>
+    <a href="#posts/<%= post.id %>/delete">Delete</a>
+    <a href="#posts">List</a>
   </div>
 </script>
 
 <script type="text/template" id="postFormTpl">
-  <div class="postForm">
+  <h1>NoBoard - post - form</h1>
+
+  <form id="postForm">
+    <input id="postIdText" type="hidden" value="<%= post.id %>"/>
+
     <div>
       <label for="postAuthorText">Author:</label>
       <input id="postAuthorText" type="text" value="<%= post.author %>"/>
@@ -103,12 +86,18 @@
     </div>
 
     <div>
+      <label for="postContentText">Content:</label>
       <textarea id="postContentText" class="content"><%= post.content %></textarea>
     </div>
 
     <div>
-      <button id="postSubmitBtn">Submit</button>
+      <button id="postSubmitBtn" type="submit">Submit</button>
+      <button id="postResetBtn" type="reset">Reset</button>
     </div>
+  </form>
+
+  <div>
+    <a href="#posts">List</a>
   </div>
 </script>
 

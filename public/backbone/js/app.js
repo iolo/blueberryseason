@@ -2,91 +2,53 @@ $(function () {
 
   ///////////////////////////////////////////////////////////////////
 
-  var localStorage = new Backbone.LocalStorage("backbonepress-posts");
   var Post = Backbone.Model.extend({
-    localStorage: localStorage,
+    urlRoot: '/api/1/posts',
     defaults: function () {
       return {
-        type: 'post',
-        status: 'publish',
+        id: null,
+        created: new Date(),
+        modified: new Date(),
         title: '',
         author: '',
-        content: '',
-        date: new Date(),
-        comments: []
+        content: ''
       };
-    },
-
-
-    initialize: function () {
-      console.log('post.initialize', arguments);
-    },
-
-    submit: function () {
-      console.log('post.submit', arguments);
     }
   });
 
   var Posts = Backbone.Collection.extend({
-    model: Post,
-    localStorage: localStorage,
+    url: '/api/1/posts',
+    model: Post
   });
 
   ///////////////////////////////////////////////////////////////////
 
-  var PostsView = Backbone.View.extend({
+  var PostListView = Backbone.View.extend({
     el: $('#contents'),
-    template: _.template($('#postsTpl').html()),
-    events: {
-      'click #postNewBtn': 'postNew'
+    template: _.template($('#postListTpl').html()),
+    initialize: function () {
+      this.model.bind('all', this.render, this);
     },
     render: function () {
-      //var posts = _.map(this.posts.models, function (m) { return m.attributes; });
-      console.log('postsView.render', this.model);
+      console.log('postsView.render', this.model, this.model.length);
+      var posts = _.map(this.model.models, function (model) {
+        return model.toJSON();
+      });
+      console.log('postsView.render', posts);
       this.$el.html(this.template({'posts': this.model.toJSON()}));
       return this;
-    },
-    postNew: function () {
-      new PostFormView({model: new Post()}).render();
-      return false;
     }
   });
 
-  var PostView = Backbone.View.extend({
+  var PostShowView = Backbone.View.extend({
     el: $('#contents'),
-    template: _.template($('#postTpl').html()),
-    events: {
-      'click #postEditBtn': 'postEdit',
-      'click #postDeleteBtn': 'postDelete',
-      'click #commentDeleteBtn': 'commentDelete',
-      'click #commentSubmitBtn': 'commentSubmit'
+    template: _.template($('#postShowTpl').html()),
+    initialize: function () {
+      this.model.bind('all', this.render, this);
     },
     render: function () {
       this.$el.html(this.template({'post': this.model.toJSON()}));
       return this;
-    },
-    postEdit: function () {
-      new PostFormView({model: this.model}).render();
-      return false;
-    },
-    postDelete: function () {
-      if (confirm('are you sure to delete this post?')) {
-        this.model.destroy({
-          success: function () {
-            console.log('destroy success', arguments);
-            app.navigate('posts', {trigger: true});
-          }
-        });
-      }
-      return false;
-    },
-    commentDelete: function () {
-      if (confirm('are you sure to delete this comment?')) {
-      }
-      return false;
-    },
-    commentSubmit: function () {
-      return false;
     }
   });
 
@@ -95,6 +57,9 @@ $(function () {
     template: _.template($('#postFormTpl').html()),
     events: {
       'click #postSubmitBtn': 'submit'
+    },
+    initialize: function () {
+      this.model.bind('all', this.render, this);
     },
     render: function () {
       this.$el.html(this.template({post: this.model.toJSON()}));
@@ -108,8 +73,10 @@ $(function () {
         author: $('#postAuthorText').val()
       });
       if (this.model.isNew()) {
+        console.log('submit model is new!');
         app.posts.create(this.model);
       } else {
+        console.log('submit model is NOT new!');
         this.model.save();
       }
       app.navigate('posts', {trigger: true});
@@ -122,24 +89,50 @@ $(function () {
   var App = Backbone.Router.extend({
     routes: {
       'posts': 'postList',
+      'posts/new': 'postNew',
       'posts/:id': 'postShow',
+      'posts/:id/edit': 'postEdit',
+      'posts/:id/delete': 'postDelete',
       '': 'postList'
     },
 
     initialize: function () {
       this.posts = new Posts();
+      this.posts.fetch();
+      console.log('app.initialize:', this.posts);
     },
 
     postList: function () {
       console.log('---> postList', arguments);
       this.posts.fetch();
-      new PostsView({model: this.posts}).render();
+      var view = new PostListView({model: this.posts});
+      view.render();
     },
 
     postShow: function (id) {
       console.log('---> postShow', arguments);
       var post = this.posts.get(id);
-      new PostView({model: post}).render();
+      var view = new PostShowView({model: post});
+      view.render();
+    },
+
+    postNew: function () {
+      var post = new Post();
+      var view = new PostFormView({model: post});
+      view.render();
+    },
+
+    postEdit: function (id) {
+      var post = this.posts.get(id);
+      var view = new PostFormView({model: post});
+      view.render();
+    },
+
+    postDelete: function (id) {
+      if (confirm('are you sure to delete this post?\n')) {
+        this.posts.remove(id);
+      }
+      app.navigate('posts', {trigger: true});
     }
 
   });
