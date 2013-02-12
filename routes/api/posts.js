@@ -9,7 +9,7 @@ function callbackJsonResponse(res) {
     if (err) {
       return res.json({error: err});
     }
-    return res.json({result: result});
+    return res.json(result);
   };
 }
 
@@ -23,8 +23,14 @@ function get(req, res) {
 }
 
 function create(req, res) {
-  var post = postDao.create(req.body);
-  postDao.save(post, callbackJsonResponse(res));
+  var post = postDao.createNew(req.body);
+  postDao.save(post, function (err, numRows, insertId) {
+    if (err) {
+      return res.json({error: err});
+    }
+    console.log('posts create:', arguments);
+    postDao.load(insertId, callbackJsonResponse(res));
+  });
 }
 
 function update(req, res) {
@@ -34,7 +40,13 @@ function update(req, res) {
       return res.json({error: err});
     }
     post = _.defaults(post, req.body);
-    postDao.save(post, callbackJsonResponse(res));
+    postDao.save(post, function (err, numRows) {
+      if (err) {
+        return res.json({error: err});
+      }
+      console.log('posts update:', arguments);
+      postDao.load(post.id, callbackJsonResponse(res));
+    });
   });
 }
 
