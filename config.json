@@ -1,0 +1,46 @@
+{
+  "express": {
+    "host": "localhost",
+    "port": 3000
+  },
+  "nobatis": {
+    "dataSource": {
+      "driver": "mariasql",
+      "host": "localhost",
+      "port": 3306,
+      "user": "root",
+      "password": "",
+      "db": "noboard"
+    },
+    "queries": {
+      "posts.select": "SELECT * FROM posts WHERE id=?",
+      "posts.insert": [
+        "INSERT INTO posts(created,author,title,content) ",
+        "VALUES(null,:author,:title,:content)"
+      ],
+      "posts.update": [
+        "UPDATE posts SET ",
+        "author=:author,title=:title,content=:content ",
+        "WHERE id=:id"
+      ],
+      "posts.delete": "DELETE FROM posts WHERE id=?",
+      "posts.selectAll": "SELECT * FROM posts",
+
+      "comments.select": "SELECT * FROM comments WHERE id=?",
+      "comments.insert": [
+        "INSERT INTO comments(created,author,content,postId) ",
+        "VALUES(null,:author,:content,:postId)"
+      ],
+      "comments.update": [
+        "UPDATE comment SET ",
+        "author=:author,content=:content,postId=:postId ",
+        "WHERE id=:id"
+      ],
+      "comments.delete": "DELETE FROM comments WHERE id=?",
+      "comments.selectAll": "SELECT * FROM comments",
+      "comments.selectByPost": "SELECT * FROM comments WHERE postId=:postId",
+
+      "noop": "SELECT 1"
+    }
+  }
+}

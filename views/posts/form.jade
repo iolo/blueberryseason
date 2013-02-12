@@ -1,0 +1,31 @@
+doctype 5
+-var post=result
+html
+  head
+    meta(charset="utf8")
+    title NoPress - post - form
+  body
+    h1 NoPress - post - form
+
+    form#postForm(method="POST",action="/posts/save")
+
+      input#postIdText(type="hidden",name="id",value="#{post.id}")
+
+      div
+        label(for="postAuthorText") author
+        input#postAuthorText(type="text",name="author",value="#{post.author}")
+
+      div
+        label(for="postTitleText") title
+        input#postTitleText(type="text",name="title",value="#{post.title}")
+
+      div
+        label(for="postContentText") content
+        textarea#postContentText(name="content") #{post.content}
+
+      div
+        button(type="submit") Submit
+        button(type="reset") Reset
+
+    div
+        a(href="/posts") List

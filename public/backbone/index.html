@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <title>BackbonePress</title>
+  <link rel="stylesheet" type="text/css" href="css/app.css"/>
+</head>
+<body>
+
+<h1>BackbonePress</h1>
+
+<div id="contents"></div>
+
+<script src="lib/jquery-1.9.1.min.js"></script>
+<script src="lib/underscore-min.js"></script>
+<script src="lib/backbone-min.js"></script>
+<script src="lib/backbone.localStorage.js"></script>
+<script src="js/app.js"></script>
+
+<script type="text/template" id="postsTpl">
+  <p><%= posts.length %> posts</p>
+
+  <div class="postList">
+    <% _.each(posts, function (post) { %>
+    <div class="post">
+      <h3><a href="#/posts/<%= post.id %>"><%= post.title %></a></h3>
+
+      <p class="content"><%= post.content.substring(100) %></p>
+
+      <p class="date"><%= post.date %></p>
+
+      <p class="author"><%= post.author %></p>
+
+      <p class="comments"><%= post.comments.length %> comments</p>
+    </div>
+    <% }) %>
+    <div>
+      <button id="postNewBtn">New Post</button>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="postTpl">
+  <div class="postShow">
+    <h3><%= post.title %></h3>
+
+    <p class="comment"><%= post.content %></p>
+
+    <p class="date"><%= post.date %></p>
+
+    <p class="author"><%= post.author %></p>
+
+    <div>
+      <button id="postEditBtn">Edit</button>
+      <button id="postDeleteBtn">Delete</button>
+    </div>
+
+    <div class="comments">
+      <p><%= post.comments.length %> comments</p>
+
+      <% _.each(post.comments, function (comment) { %>
+      <div class="comment">
+        <p class="content"><%=comment.content%></p>
+
+        <p class="date"><%= comment.date %></p>
+
+        <p class="author"><%=comment.author%></p>
+
+        <div>
+          <button id="commentEditBtn">Edit</button>
+          <button id="commentDeleteBtn">Delete</button>
+        </div>
+      </div>
+      <% }) %>
+
+      <div class="commentForm">
+        <div>
+          <label for="commentAuthorText">Author:</label>
+          <input id="commentAuthorText" type="text" value=""/>
+        </div>
+
+        <div>
+          <textarea id="commentContentText" class="comment"></textarea>
+        </div>
+
+        <div>
+          <button id="commentSubmitBtn">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/template" id="postFormTpl">
+  <div class="postForm">
+    <div>
+      <label for="postAuthorText">Author:</label>
+      <input id="postAuthorText" type="text" value="<%= post.author %>"/>
+    </div>
+
+    <div>
+      <label for="postTitleText">Title:</label>
+      <input id="postTitleText" type="text" value="<%= post.title %>"/>
+    </div>
+
+    <div>
+      <textarea id="postContentText" class="content"><%= post.content %></textarea>
+    </div>
+
+    <div>
+      <button id="postSubmitBtn">Submit</button>
+    </div>
+  </div>
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "noboard",
+  "version": "0.0.1",
+  "description":"simple discussion forum for benchmark",
+  "author":"Dongsu Jang <iolothebard@gmail.com>",
+  "repository":{
+    "type": "git",
+    "url": "git://git@github.com/iolo/node-noboard.git"
+  },
+  "license": "MIT",
+  "engine":{
+    "node": ">=0.8"
+  },
+  "dependencies": {
+    "express": ">=3.0.6",
+    "jade": ">=0.28.1",
+    "mariasql": ">=0.1.12",
+    "request": ">=2.12.0",
+    "redis": ">=0.8.2",
+    "noredis": ">=0.0.7",
+    "nobatis": ">=0.0.5",
+    "node-uuid": ">=1.4.0",
+    "underscore": ">=1.4.3",
+    "q": ">=0.8.12"
+  },
+  "devDependencies": {
+    "nodeunit": ">=0.7.4"
+  }
+}
