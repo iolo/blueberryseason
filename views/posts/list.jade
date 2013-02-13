@@ -10,21 +10,21 @@ html
     p #{posts.length} posts
 
     table(border="1")
-        thead
-            tr
-                th id
-                th title
-                th author
-                th modified
-        each post in posts
-            tbody
-                tr
-                    td
-                        a(href="/posts/show?postId=#{post.id}") #{post.id}
-                    td
-                        a(href="/posts/show?postId=#{post.id}") #{post.title}
-                    td #{post.author}
-                    td #{post.modified}
+      thead
+        tr
+          th id
+          th title
+          th author
+          th modified
+      each post in posts
+        tbody
+          tr
+            td
+              a(href="/posts/show?postId=#{post.id}") #{post.id}
+            td
+              a(href="/posts/show?postId=#{post.id}") #{post.title}
+            td #{post.author}
+            td #{post.modified}
 
     div
-        a(href="/posts/new") New Post
+      a(href="/posts/new") New Post

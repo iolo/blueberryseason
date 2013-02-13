@@ -8,13 +8,13 @@ html
     h1 NoPress - post - #{post.id}
 
     div
-        p created: #{post.created}
-        p modified: #{post.modified}
-        p author: #{post.author}
-        p title: #{post.title}
-        p content: #{post.content}
+      p created: #{post.created}
+      p modified: #{post.modified}
+      p author: #{post.author}
+      p title: #{post.title}
+      p content: #{post.content}
 
     div
-        a(href="/posts/edit?postId=#{post.id}") Edit
-        a(href="/posts/delete?postId=#{post.id}") Delete
-        a(href="/posts") List
+      a(href="/posts/edit?postId=#{post.id}") Edit
+      a(href="/posts/delete?postId=#{post.id}") Delete
+      a(href="/posts") List
