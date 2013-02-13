@@ -39,13 +39,13 @@ function update(req, res) {
     if (err) {
       return res.json({error: err});
     }
-    post = _.defaults(post, req.body);
+    post = _.defaults(req.body, post);
     postDao.save(post, function (err, numRows) {
       if (err) {
         return res.json({error: err});
       }
       console.log('posts update:', arguments);
-      postDao.load(post.id, callbackJsonResponse(res));
+      postDao.load(postId, callbackJsonResponse(res));
     });
   });
 }

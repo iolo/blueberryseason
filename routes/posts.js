@@ -55,7 +55,7 @@ function editForm(req, res) {
 
 function save(req, res) {
   var post = _.defaults(req.body, postDao.createNew());
-  if (post.id === '0') {
+  if (post.id === '0') { // XXX: nobatis bug!
     post.id = 0;
   }
   console.log('save isNew:', postDao.isNew(post));
