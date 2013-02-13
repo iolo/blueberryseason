@@ -38,12 +38,27 @@ $(function () {
   var PostShowView = Backbone.View.extend({
     el: $('#contents'),
     template: _.template($('#postShowTpl').html()),
+    events: {
+      'click #postDeleteBtn': 'postDelete'
+    },
     initialize: function () {
     },
     render: function () {
       console.log('postShowView.render', this.model);
       this.$el.html(this.template({'post': this.model.toJSON()}));
       return this;
+    },
+    postDelete: function (evt) {
+      evt.preventDefault();
+      if (confirm('Are you sure to delete this post?')) {
+        this.model.destroy({
+          success: function () {
+            console.log('postDelete destroy success', arguments);
+            app.navigate('posts', {trigger: true, replace: true});
+          }
+        });
+      }
+      return false;
     }
   });
 
@@ -85,7 +100,6 @@ $(function () {
       'posts/new': 'postNew',
       'posts/:id': 'postShow',
       'posts/:id/edit': 'postEdit',
-      'posts/:id/delete': 'postDelete',
       '': 'postList'
     },
 
@@ -134,26 +148,7 @@ $(function () {
           view.render();
         }
       });
-    },
-
-    postDelete: function (id) {
-      console.log('---> postDelete', arguments);
-      this.posts.fetch({
-        success: function (posts) {
-          console.log('postDelete fetch success', arguments);
-          var post = posts.get(id);
-          if (confirm('are you sure to delete this post?\n')) {
-            post.destroy({
-              success: function () {
-                console.log('postDelete destroy success', arguments);
-                app.navigate('posts', {trigger: true, replace: true});
-              }
-            });
-          }
-        }
-      });
     }
-
   });
 
   ///////////////////////////////////////////////////////////////////

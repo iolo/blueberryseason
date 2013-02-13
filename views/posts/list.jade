@@ -3,19 +3,19 @@ doctype 5
 html
   head
     meta(charset="utf8")
-    title NoPress - posts
+    title NoBoard with Express
   body
-    h1 NoPress - posts
+    h1 NoBoard - Posts
 
     p #{posts.length} posts
 
     table(border="1")
       thead
         tr
-          th id
-          th title
-          th author
-          th modified
+          th Id
+          th Title
+          th Author
+          th Modified
       each post in posts
         tbody
           tr

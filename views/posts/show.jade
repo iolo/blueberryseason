@@ -3,18 +3,25 @@ doctype 5
 html
   head
     meta(charset="utf8")
-    title NoPress - post - #{post.id}
+    title NoBoard with Express
   body
-    h1 NoPress - post - #{post.id}
+    h1 NoPress - Post - #{post.id}
+
+    dl
+      dt Created:
+      dd #{post.created}
+      dt Modified:
+      dd #{post.modified}
+      dt Author:
+      dd #{post.author}
+      dt Title:
+      dd #{post.title}
+      dt Content:
+      dd #{post.content}
 
     div
-      p created: #{post.created}
-      p modified: #{post.modified}
-      p author: #{post.author}
-      p title: #{post.title}
-      p content: #{post.content}
-
-    div
+      a(href="/posts") Back to List
+      span &nbsp;
       a(href="/posts/edit?postId=#{post.id}") Edit
-      a(href="/posts/delete?postId=#{post.id}") Delete
-      a(href="/posts") List
+      span &nbsp;
+      a(href="/posts/delete?postId=#{post.id}",onclick="return confirm('Are you sure to delete this post?')") Delete

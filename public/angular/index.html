@@ -1,0 +1,60 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title>NoBoard with AngularJS</title>
+  <meta viewport="width=device-width,initial-scale=1.0"/>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"/>
+  <style>body {
+    padding-top: 60px;
+  }</style>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-responsive.min.css"/>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#">NoBoard</a>
+
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+        </ul>
+        <ul class="nav pull-right">
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="container">
+  <div class="row">
+    <div class="span12">
+      <article id="content" ng-view></article>
+    </div>
+  </div>
+  <hr/>
+  <footer><p>Copyright &copy; 2013 IoloTheBard. All rights reserved.</p></footer>
+</section>
+
+<div id="httpLoadingIndicator" ng-show="httpLoading">HTTP LOADING!!!</div>
+<div id="httpErrorIndicator" ng-show="httpError">HTTP ERROR!!!</div>
+
+<!-- angularjs -->
+<script src="/lib/angular/angular.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/services.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/directives.js"></script>
+<!-- bootstrap -->
+<script src="/lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

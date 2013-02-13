@@ -1,0 +1,27 @@
+<h1>NoBoard - Posts</h1>
+
+<p>{{posts.length}} posts</p>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Modified</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="post in posts">
+    <td><a href="#/posts/{{post.id}}">{{post.id}}</a></td>
+    <td><a href="#/posts/{{post.id}}">{{post.title}}</a></td>
+    <td>{{post.author}}</td>
+    <td>{{post.modified}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<div>
+  <a class="btn btn-primary" href="#/posts/new">New Post</a>
+</div>
+

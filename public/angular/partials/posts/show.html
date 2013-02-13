@@ -1,0 +1,42 @@
+<h1>NoBoard - Post - {{post.id}}</h1>
+
+<dl>
+  <dt>Created:</dt>
+  <dd>{{post.created}}</dd>
+
+  <dt>Modified:</dt>
+  <dd>{{post.modified}}</dd>
+
+  <dt>Title:</dt>
+  <dd>{{post.title}}</dd>
+
+  <dt>Author:</dt>
+  <dd>{{post.author}}</dd>
+
+  <dt>Content:</dt>
+  <dd>{{post.content}}</dd>
+</dl>
+
+<div>
+  <a class="btn" href="#/posts">Back to List</a>
+  <span>&nbsp;</span>
+  <a class="btn btn-primary" href="#/posts/{{post.id}}/edit">Edit</a>
+  <span>&nbsp;</span>
+  <a class="btn btn-danger" href="#confimPostDeleteModal" data-toggle="modal">Delete</a>
+</div>
+
+<div id="confimPostDeleteModal" class="modal hide fade">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">&times;</button>
+    <h3>Delete Post</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure to delete this post?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">Nope</a>
+    <a class="btn btn-danger" data-dismiss="modal" ng-click="postDelete()">Yes, I'm sure</a>
+  </div>
+</div>
+
+

@@ -1,7 +1,7 @@
 NoBoard
 =======
 
-NoBoard is a simple discussion forum to examine various webapp architectures.
+NoBoard is a minimal discussion forum(aka board) to demonstrate various webapp architectures.
 
 Traditional Webapp
 ------------------
@@ -19,6 +19,6 @@ Full-featured Single Page Webapp
 --------------------------------
 
 * use [AngularJS](http://angularjs.org)
-* use [Twitter Bootstrap](http://twitter.github.com/bootstrap]
+* use [Twitter Bootstrap](http://twitter.github.com/bootstrap)
 * client-side rendering with builtin template engine
 * SEO with [PhantomJS](http://phantomjs.org)

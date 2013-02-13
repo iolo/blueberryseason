@@ -2,7 +2,17 @@
 
 var
   _ = require('underscore'),
-  postDao = require('nobatis').createDao({ table: 'posts' });
+  postDao = require('nobatis').createDao({
+    table: 'posts',
+    defaults: {
+      id: 0,
+      created: new Date(),
+      modified: new Date(),
+      author: '',
+      title: '',
+      content: ''
+    }
+  });
 
 function callbackJsonResponse(res) {
   return function (err, result) {
@@ -19,7 +29,7 @@ function list(req, res) {
 
 function get(req, res) {
   var postId = req.param('postId');
-  postDao.get(postId, callbackJsonResponse(res));
+  postDao.load(postId, callbackJsonResponse(res));
 }
 
 function create(req, res) {

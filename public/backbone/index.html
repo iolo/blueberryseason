@@ -22,10 +22,10 @@
   <table border="1">
     <thead>
     <tr>
-      <th>id</th>
-      <th>title</th>
-      <th>author</th>
-      <th>modified</th>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Modified</th>
     </tr>
     </thead>
     <tbody>
@@ -46,48 +46,62 @@
 </script>
 
 <script type="text/template" id="postShowTpl">
-  <h1>NoBoard - post - <%= post.id %></h1>
+  <h1>NoBoard - Post - <%= post.id %></h1>
+
+  <dl>
+    <dt>Created:</dt>
+    <dd><%= post.created %></dd>
+
+    <dt>Modified:</dt>
+    <dd><%= post.modified %></dd>
+
+    <dt>Title:</dt>
+    <dd><%= post.title %></dd>
+
+    <dt>Author:</dt>
+    <dd><%= post.author %></dd>
+
+    <dt>Content:</dt>
+    <dd><%= post.content %></dd>
+  </dl>
 
   <div>
-    <h3><%= post.title %></h3>
-
-    <p>created: <%= post.created %></p>
-
-    <p>modified: <%= post.modified %></p>
-
-    <p>author: <%= post.author %></p>
-
-    <p>title: <%= post.title %></p>
-
-    <p>content: <%= post.content %></p>
-  </div>
-
-  <div>
+    <a href="#posts">Back to List</a>
+    <span>&nbsp;</span>
     <a href="#posts/<%= post.id %>/edit">Edit</a>
-    <a href="#posts/<%= post.id %>/delete">Delete</a>
-    <a href="#posts">List</a>
+    <span>&nbsp;</span>
+    <a id="postDeleteBtn" href="#posts">Delete</a>
   </div>
 </script>
 
 <script type="text/template" id="postFormTpl">
-  <h1>NoBoard - post - form</h1>
+  <h1>NoBoard - Post - <%= (post.id ? 'Edit' : 'New') %></h1>
 
   <form id="postForm">
     <input id="postIdText" type="hidden" value="<%= post.id %>"/>
 
     <div>
       <label for="postAuthorText">Author:</label>
-      <input id="postAuthorText" type="text" value="<%= post.author %>"/>
+
+      <div>
+        <input id="postAuthorText" type="text" value="<%= post.author %>"/>
+      </div>
     </div>
 
     <div>
       <label for="postTitleText">Title:</label>
-      <input id="postTitleText" type="text" value="<%= post.title %>"/>
+
+      <div>
+        <input id="postTitleText" type="text" value="<%= post.title %>"/>
+      </div>
     </div>
 
     <div>
       <label for="postContentText">Content:</label>
-      <textarea id="postContentText" class="content"><%= post.content %></textarea>
+
+      <div>
+        <textarea id="postContentText" class="content"><%= post.content %></textarea>
+      </div>
     </div>
 
     <div>
@@ -97,7 +111,7 @@
   </form>
 
   <div>
-    <a href="#posts">List</a>
+    <a href="#posts">Back to List</a>
   </div>
 </script>
 

@@ -7,7 +7,7 @@ var
     defaults: {
       id: 0,
       created: new Date(),
-      updated: new Date(),
+      modified: new Date(),
       author: '',
       title: '',
       content: ''
@@ -43,8 +43,6 @@ function show(req, res) {
 
 function newForm(req, res) {
   var post = postDao.createNew();
-  console.log('new isNew:', postDao.isNew(post));
-  console.log('new:', post);
   res.render('posts/form', {result: post});
 }
 
@@ -58,8 +56,6 @@ function save(req, res) {
   if (post.id === '0') { // XXX: nobatis bug!
     post.id = 0;
   }
-  console.log('save isNew:', postDao.isNew(post));
-  console.log('save:', post);
   postDao.save(post, callbackForRedirect(res, '/posts'));
 }
 
