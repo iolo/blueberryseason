@@ -27,14 +27,9 @@ $(function () {
     el: $('#contents'),
     template: _.template($('#postListTpl').html()),
     initialize: function () {
-      this.model.bind('all', this.render, this);
     },
     render: function () {
-      console.log('postsView.render', this.model, this.model.length);
-      var posts = _.map(this.model.models, function (model) {
-        return model.toJSON();
-      });
-      console.log('postsView.render', posts);
+      console.log('postListView.render', this.model);
       this.$el.html(this.template({'posts': this.model.toJSON()}));
       return this;
     }
@@ -44,9 +39,9 @@ $(function () {
     el: $('#contents'),
     template: _.template($('#postShowTpl').html()),
     initialize: function () {
-      this.model.bind('all', this.render, this);
     },
     render: function () {
+      console.log('postShowView.render', this.model);
       this.$el.html(this.template({'post': this.model.toJSON()}));
       return this;
     }
@@ -59,27 +54,25 @@ $(function () {
       'click #postSubmitBtn': 'submit'
     },
     initialize: function () {
-      this.model.bind('all', this.render, this);
     },
     render: function () {
+      console.log('postFormView.render', this.model);
       this.$el.html(this.template({post: this.model.toJSON()}));
       return this;
     },
     submit: function () {
-      console.log('submit!', arguments);
+      console.log('postFormView.submit', arguments);
       this.model.set({
         title: $('#postTitleText').val(),
         content: $('#postContentText').val(),
         author: $('#postAuthorText').val()
       });
-      if (this.model.isNew()) {
-        console.log('submit model is new!');
-        app.posts.create(this.model);
-      } else {
-        console.log('submit model is NOT new!');
-        this.model.save();
-      }
-      app.navigate('posts', {trigger: true});
+      this.model.save(null, {
+        success: function () {
+          console.log('submit ok!');
+          app.navigate('posts', {trigger: true, replace: true});
+        }
+      });
       return false;
     }
   });
@@ -104,35 +97,61 @@ $(function () {
 
     postList: function () {
       console.log('---> postList', arguments);
-      this.posts.fetch();
-      var view = new PostListView({model: this.posts});
-      view.render();
+      this.posts.fetch({
+        success: function (posts) {
+          var view = new PostListView({model: posts});
+          view.render();
+        }
+      });
     },
 
     postShow: function (id) {
       console.log('---> postShow', arguments);
-      var post = this.posts.get(id);
-      var view = new PostShowView({model: post});
-      view.render();
+      this.posts.fetch({
+        success: function (posts) {
+          console.log('postShow fetch success', arguments);
+          var post = posts.get(id);
+          var view = new PostShowView({model: post});
+          view.render();
+        }
+      })
     },
 
     postNew: function () {
+      console.log('---> postNew', arguments);
       var post = new Post();
       var view = new PostFormView({model: post});
       view.render();
     },
 
     postEdit: function (id) {
-      var post = this.posts.get(id);
-      var view = new PostFormView({model: post});
-      view.render();
+      console.log('---> postEdit', arguments);
+      this.posts.fetch({
+        success: function (posts) {
+          console.log('postEdit fetch success', arguments);
+          var post = posts.get(id);
+          var view = new PostFormView({model: post});
+          view.render();
+        }
+      });
     },
 
     postDelete: function (id) {
-      if (confirm('are you sure to delete this post?\n')) {
-        this.posts.remove(id);
-      }
-      app.navigate('posts', {trigger: true});
+      console.log('---> postDelete', arguments);
+      this.posts.fetch({
+        success: function (posts) {
+          console.log('postDelete fetch success', arguments);
+          var post = posts.get(id);
+          if (confirm('are you sure to delete this post?\n')) {
+            post.destroy({
+              success: function () {
+                console.log('postDelete destroy success', arguments);
+                app.navigate('posts', {trigger: true, replace: true});
+              }
+            });
+          }
+        }
+      });
     }
 
   });
