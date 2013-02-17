@@ -26,6 +26,7 @@
       <th>Title</th>
       <th>Author</th>
       <th>Modified</th>
+      <th>#Comments</th>
     </tr>
     </thead>
     <tbody>
@@ -35,6 +36,7 @@
       <td><a href="#posts/<%= post.id %>"><%= post.title %></a></td>
       <td><%= post.author %></td>
       <td><%= post.modified %></td>
+      <td><%= post.commentsCount %></td>
     </tr>
     <% }) %>
     </tbody>
@@ -70,8 +72,44 @@
     <span>&nbsp;</span>
     <a href="#posts/<%= post.id %>/edit">Edit</a>
     <span>&nbsp;</span>
-    <a id="postDeleteBtn" href="#posts">Delete</a>
+    <a id="deletePostBtn" href="#posts">Delete</a>
   </div>
+
+  <hr />
+
+  <p><%= comments.length %> comments</p>
+
+  <% if(comments.length > 0) { %>
+  <table border="1">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Content</th>
+      <th>Author</th>
+      <th>Modified</th>
+      <th>-</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% _.each(comments, function (comment) { %>
+    <tr>
+      <td><%= comment.id %></a></td>
+      <td><%= comment.content %></a></td>
+      <td><%= comment.author %></td>
+      <td><%= comment.modified %></td>
+      <td><a class="deleteCommentBtn" data-comment-id="<%= comment.id %>" href="#posts">Delete</a></td>
+    </tr>
+    <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+
+  <form id="commentForm">
+    <input id="commentPostIdText" type="hidden" name="postId" value="<%= post.id %>" />
+    <input id="commentAuthorText" type="text" name="author" required placeholder="Author..." />
+    <textarea id="commentContentText" name="content" placeholder="Content..."></textarea>
+    <button id="submitCommentBtn">Submit</button>
+  </form>
 </script>
 
 <script type="text/template" id="postFormTpl">
@@ -105,8 +143,8 @@
     </div>
 
     <div>
-      <button id="postSubmitBtn" type="submit">Submit</button>
-      <button id="postResetBtn" type="reset">Reset</button>
+      <button id="submitPostBtn" type="submit">Submit</button>
+      <button type="reset">Reset</button>
     </div>
   </form>
 

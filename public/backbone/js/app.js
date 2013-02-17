@@ -2,6 +2,27 @@ $(function () {
 
   ///////////////////////////////////////////////////////////////////
 
+  var Comment = Backbone.Model.extend({
+    urlRoot: function () {
+      return '/api/1/posts/' + this.get('postId') + '/comments';
+    },
+    defaults: function () {
+      return {
+        id: null,
+        created: new Date(),
+        modified: new Date(),
+        author: '',
+        content: '',
+        postId: null
+      };
+    }
+  });
+
+  var Comments = Backbone.Collection.extend({
+    // url: dynamic
+    model: Comment
+  });
+
   var Post = Backbone.Model.extend({
     urlRoot: '/api/1/posts',
     defaults: function () {
@@ -13,6 +34,10 @@ $(function () {
         author: '',
         content: ''
       };
+    },
+    initialize: function () {
+      this.comments = new Comments();
+      this.comments.url = '/api/1/posts/' + this.id + '/comments';
     }
   });
 
@@ -27,9 +52,9 @@ $(function () {
     el: $('#contents'),
     template: _.template($('#postListTpl').html()),
     initialize: function () {
+      this.listenTo(this.model, 'sync', this.render);
     },
     render: function () {
-      console.log('postListView.render', this.model);
       this.$el.html(this.template({'posts': this.model.toJSON()}));
       return this;
     }
@@ -39,26 +64,50 @@ $(function () {
     el: $('#contents'),
     template: _.template($('#postShowTpl').html()),
     events: {
-      'click #postDeleteBtn': 'postDelete'
+      'click #deletePostBtn': 'deletePost',
+      'click .deleteCommentBtn': 'deleteComment',
+      'submit #commentForm': 'submitComment'
     },
     initialize: function () {
+      this.render();
+      this.model.comments.fetch();
+      this.listenTo(this.model.comments, 'sync', this.render);
+      this.listenTo(this.model.comments, 'destroy', this.render);
+      this.listenTo(this.model.comments, 'all', function(e) { console.log('comments model',e);});
     },
     render: function () {
-      console.log('postShowView.render', this.model);
-      this.$el.html(this.template({'post': this.model.toJSON()}));
+      this.$el.html(this.template({'post': this.model.toJSON(), 'comments': this.model.comments.toJSON(), 'comment': new Comment()}));
       return this;
     },
-    postDelete: function (evt) {
+    deletePost: function (evt) {
       evt.preventDefault();
       if (confirm('Are you sure to delete this post?')) {
         this.model.destroy({
           success: function () {
-            console.log('postDelete destroy success', arguments);
+            console.log('deletePost destroy success', arguments);
             app.navigate('posts', {trigger: true, replace: true});
           }
         });
       }
+    },
+    deleteComment: function (evt) {
+      evt.preventDefault();
+      if (confirm('Are you sure to delete this comment?')) {
+        var commentId = $(evt.target).data('commentId');
+        var comment = this.model.comments.get(commentId);
+        // this will fire 'remove' and 'destroy' event
+        comment.destroy();
+      }
       return false;
+    },
+    submitComment: function (evt) {
+      evt.preventDefault();
+      // this will fire 'add' and 'sync' event
+      this.model.comments.create({
+        content: $('#commentContentText').val(),
+        author: $('#commentAuthorText').val(),
+        postId: $('#commentPostIdText').val()
+      });
     }
   });
 
@@ -66,16 +115,21 @@ $(function () {
     el: $('#contents'),
     template: _.template($('#postFormTpl').html()),
     events: {
-      'click #postSubmitBtn': 'submit'
+      'click #submitPostBtn': 'submitPost'
     },
     initialize: function () {
+      console.log('postform init', arguments);
+      this.listenTo(this.model, 'reset', function (event) {
+        console.log('postform model ', event);
+      });
+      this.render();
     },
     render: function () {
       console.log('postFormView.render', this.model);
       this.$el.html(this.template({post: this.model.toJSON()}));
       return this;
     },
-    submit: function () {
+    submitPost: function () {
       console.log('postFormView.submit', arguments);
       this.model.set({
         title: $('#postTitleText').val(),
@@ -106,46 +160,32 @@ $(function () {
     initialize: function () {
       this.posts = new Posts();
       this.posts.fetch();
-      console.log('app.initialize:', this.posts);
     },
 
     postList: function () {
-      console.log('---> postList', arguments);
+      this.posts.fetch();
+      new PostListView({model: this.posts});
+    },
+
+    postShow: function (id) {
       this.posts.fetch({
         success: function (posts) {
-          var view = new PostListView({model: posts});
-          view.render();
+          var post = posts.get(id);
+          new PostShowView({model: post});
         }
       });
     },
 
-    postShow: function (id) {
-      console.log('---> postShow', arguments);
-      this.posts.fetch({
-        success: function (posts) {
-          console.log('postShow fetch success', arguments);
-          var post = posts.get(id);
-          var view = new PostShowView({model: post});
-          view.render();
-        }
-      })
-    },
-
     postNew: function () {
-      console.log('---> postNew', arguments);
       var post = new Post();
-      var view = new PostFormView({model: post});
-      view.render();
+      new PostFormView({model: post});
     },
 
     postEdit: function (id) {
-      console.log('---> postEdit', arguments);
       this.posts.fetch({
         success: function (posts) {
-          console.log('postEdit fetch success', arguments);
           var post = posts.get(id);
-          var view = new PostFormView({model: post});
-          view.render();
+          new PostFormView({model: post});
         }
       });
     }
