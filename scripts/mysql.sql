@@ -28,3 +28,13 @@ INSERT INTO posts (created, author, title, content) VALUES (null, 'iolo', 'first
 INSERT INTO posts (created, author, title, content) VALUES (null, 'gwenno', 'second post', 'this is second post');
 INSERT INTO posts (created, author, title, content) VALUES (null, 'shamino', 'third post', 'this is third post');
 INSERT INTO posts (created, author, title, content) VALUES (null, 'dupre', 'fourth post', 'this is fourth post');
+
+INSERT INTO comments (created, author, content, postId) VALUES (null, 'gewnno', 'first comment for first post', 1);
+INSERT INTO comments (created, author, content, postId) VALUES (null, 'shamino', 'second comment for first post', 1);
+INSERT INTO comments (created, author, content, postId) VALUES (null, 'dupre', 'thrid comment for first post', 1);
+
+INSERT INTO comments (created, author, content, postId) VALUES (null, 'shamino', 'first comment for second post', 2);
+INSERT INTO comments (created, author, content, postId) VALUES (null, 'dupre', 'second comment for second post', 2);
+
+INSERT INTO comments (created, author, content, postId) VALUES (null, 'dupre', 'first comment for thrid post', 3);
+

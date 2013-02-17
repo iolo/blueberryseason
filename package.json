@@ -14,11 +14,11 @@
   "dependencies": {
     "express": ">=3.0.6",
     "jade": ">=0.28.1",
-    "mariasql": ">=0.1.12",
+    "mariasql": ">=0.1.13",
     "request": ">=2.12.0",
     "redis": ">=0.8.2",
-    "noredis": ">=0.0.7",
-    "nobatis": ">=0.0.5",
+    "noredis": ">=0.0.9",
+    "nobatis": ">=0.0.6",
     "node-uuid": ">=1.4.0",
     "underscore": ">=1.4.3",
     "q": ">=0.8.12"

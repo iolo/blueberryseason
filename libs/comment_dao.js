@@ -4,17 +4,23 @@ var
   _ = require('underscore'),
   nobatis = require('nobatis'),
   dataSource = nobatis.createDataSource(),
-  postDao = nobatis.createDao({
-    table: 'posts',
+  commentDao = nobatis.createDao({
+    table: 'comments',
     defaults: {
       id: 0,
       created: new Date(),
       modified: new Date(),
       author: '',
-      title: '',
-      content: ''
+      content: '',
+      postId: ''
     }
   });
 
-module.exports = postDao;
+commentDao.listByPost = function(postId, callback) {
+  dataSource.withSession(function (session) {
+    session.select('comments.selectByPost', { postId: postId }, callback);
+  });
+};
+
+module.exports = commentDao;
 

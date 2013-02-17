@@ -1,11 +1,10 @@
 doctype 5
-- var post = result
 html
   head
     meta(charset="utf8")
     title NoBoard with Express
   body
-    h1 NoPress - Post - #{post.id}
+    h1 NoBoard - Post - #{post.id}
 
     dl
       dt Created:
@@ -18,6 +17,37 @@ html
       dd #{post.title}
       dt Content:
       dd #{post.content}
+
+    table(border="1")
+      thead
+        tr
+          th Id
+          th Content
+          th Author
+          th Modified
+          th -
+      each comment in comments
+        tbody
+          tr
+            td #{comment.id}
+            td #{comment.content}
+            td #{comment.author}
+            td #{comment.modified}
+            td
+              a(href="/posts/delete_comment?postId=#{post.id}&commentId=#{comment.id}",onclick="return confirm('Are you sure to delete this comment?')") Delete
+
+    form#commentForm(method="POST",action="/posts/save_comment")
+
+      input#commentPostIdText(type="hidden",name="postId",value="#{post.id}")
+
+      label(for="commentAuthorText") Author:
+      input#postAuthorText(type="text",name="author",value="")
+
+      label(for="commentContentText") Content:
+      textarea#commentContentText(type="text",name="content",value="")
+
+      button(type="submit") Submit
+      button(type="reset") Reset
 
     div
       a(href="/posts") Back to List

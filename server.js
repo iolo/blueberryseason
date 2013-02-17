@@ -3,7 +3,7 @@
 var config = require('./config'),
   noredis = require('noredis'),
   nobatis = require('nobatis'),
-  ssf = nobatis.build(config.nobatis),
+  dataSource = nobatis.createDataSource(config.nobatis),
   express = require('express'),
   http = require('http'),
   path = require('path'),
@@ -31,6 +31,8 @@ app.get('/posts/new', routes.posts.newForm);
 app.get('/posts/edit', routes.posts.editForm);
 app.post('/posts/save', routes.posts.save);
 app.get('/posts/delete', routes.posts.destroy);
+app.post('/posts/save_comment', routes.posts.save_comment);
+app.get('/posts/delete_comment', routes.posts.destroy_comment);
 
 app.get('/api/1/posts', routes.api.posts.list);
 app.post('/api/1/posts', routes.api.posts.create);

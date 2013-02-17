@@ -2,17 +2,7 @@
 
 var
   _ = require('underscore'),
-  postDao = require('nobatis').createDao({
-    table: 'posts',
-    defaults: {
-      id: 0,
-      created: new Date(),
-      modified: new Date(),
-      author: '',
-      title: '',
-      content: ''
-    }
-  });
+  postDao = require('../../libs/post_dao');
 
 function callbackJsonResponse(res) {
   return function (err, result) {
@@ -24,7 +14,7 @@ function callbackJsonResponse(res) {
 }
 
 function list(req, res) {
-  postDao.all(callbackJsonResponse(res));
+  postDao.listWithCommentsCount(callbackJsonResponse(res));
 }
 
 function get(req, res) {

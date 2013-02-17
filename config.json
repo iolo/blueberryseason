@@ -25,6 +25,11 @@
       ],
       "posts.delete": "DELETE FROM posts WHERE id=?",
       "posts.selectAll": "SELECT * FROM posts",
+      "posts.selectWithCommentsCount": [
+        "SELECT *, ",
+        "(SELECT COUNT(*) FROM comments WHERE comments.postId=posts.id) commentsCount ",
+        "FROM posts"
+      ],
 
       "comments.select": "SELECT * FROM comments WHERE id=?",
       "comments.insert": [

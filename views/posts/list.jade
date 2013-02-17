@@ -16,6 +16,7 @@ html
           th Title
           th Author
           th Modified
+          th #Comments
       each post in posts
         tbody
           tr
@@ -25,6 +26,7 @@ html
               a(href="/posts/show?postId=#{post.id}") #{post.title}
             td #{post.author}
             td #{post.modified}
+            td #{post.commentsCount}
 
     div
       a(href="/posts/new") New Post
