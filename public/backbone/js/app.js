@@ -71,27 +71,35 @@ $(function () {
     initialize: function () {
       this.render();
       this.model.comments.fetch();
+      this.listenTo(this.model, 'all', function (e) {
+        console.log('postshow model', e);
+      });
+      this.listenTo(this.model, 'destroy', function () {
+        app.navigate('posts', {trigger: true, replace: true});
+      });
+      this.listenTo(this.model.comments, 'all', function (e) {
+        console.log('comments model', e);
+      });
+      this.listenTo(this.model.comments, 'destroy', function () {
+        app.navigate('posts', {trigger: true, replace: true});
+      });
       this.listenTo(this.model.comments, 'sync', this.render);
       this.listenTo(this.model.comments, 'destroy', this.render);
-      this.listenTo(this.model.comments, 'all', function(e) { console.log('comments model',e);});
     },
     render: function () {
       this.$el.html(this.template({'post': this.model.toJSON(), 'comments': this.model.comments.toJSON(), 'comment': new Comment()}));
       return this;
     },
     deletePost: function (evt) {
-      evt.preventDefault();
+      evt.stopImmediatePropagation();
       if (confirm('Are you sure to delete this post?')) {
-        this.model.destroy({
-          success: function () {
-            console.log('deletePost destroy success', arguments);
-            app.navigate('posts', {trigger: true, replace: true});
-          }
-        });
+        // this will fire 'remove' and 'destroy' event
+        this.model.destroy();
       }
+      return false;
     },
     deleteComment: function (evt) {
-      evt.preventDefault();
+      evt.stopImmediatePropagation();
       if (confirm('Are you sure to delete this comment?')) {
         var commentId = $(evt.target).data('commentId');
         var comment = this.model.comments.get(commentId);
@@ -101,13 +109,14 @@ $(function () {
       return false;
     },
     submitComment: function (evt) {
-      evt.preventDefault();
+      evt.stopImmediatePropagation();
       // this will fire 'add' and 'sync' event
       this.model.comments.create({
         content: $('#commentContentText').val(),
         author: $('#commentAuthorText').val(),
         postId: $('#commentPostIdText').val()
       });
+      return false;
     }
   });
 
@@ -119,34 +128,34 @@ $(function () {
     },
     initialize: function () {
       console.log('postform init', arguments);
-      this.listenTo(this.model, 'reset', function (event) {
+      this.listenTo(this.model, 'all', function (event) {
         console.log('postform model ', event);
+      });
+      this.listenTo(this.model, 'sync', function (event) {
+        app.navigate('posts', {trigger: true, replace: true});
       });
       this.render();
     },
     render: function () {
-      console.log('postFormView.render', this.model);
       this.$el.html(this.template({post: this.model.toJSON()}));
       return this;
     },
-    submitPost: function () {
+    submitPost: function (evt) {
+      evt.stopImmediatePropagation();
       console.log('postFormView.submit', arguments);
-      this.model.set({
+      var attrs = {
         title: $('#postTitleText').val(),
         content: $('#postContentText').val(),
         author: $('#postAuthorText').val()
-      });
-      this.model.save(null, {
-        success: function () {
-          console.log('submit ok!');
-          app.navigate('posts', {trigger: true, replace: true});
-        }
-      });
+      };
+      console.log('new:', this.model.isNew(), 'id:', this.model.id);
+      // this will fire 'change' and 'sync'
+      this.model.save(attrs);
       return false;
     }
   });
 
-  ///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
   var App = Backbone.Router.extend({
     routes: {
@@ -168,12 +177,8 @@ $(function () {
     },
 
     postShow: function (id) {
-      this.posts.fetch({
-        success: function (posts) {
-          var post = posts.get(id);
-          new PostShowView({model: post});
-        }
-      });
+      var post = this.posts.get(id);
+      new PostShowView({model: post});
     },
 
     postNew: function () {
@@ -182,12 +187,8 @@ $(function () {
     },
 
     postEdit: function (id) {
-      this.posts.fetch({
-        success: function (posts) {
-          var post = posts.get(id);
-          new PostFormView({model: post});
-        }
-      });
+      var post = this.posts.get(id);
+      new PostFormView({model: post});
     }
   });
 
