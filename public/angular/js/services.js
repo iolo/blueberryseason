@@ -77,6 +77,48 @@ angular.module('app.services', [])
       $http(req).then(proxyCallback(callback));
     }
 
+    function comments_list(postId, callback) {
+      var req = {
+        method: 'GET',
+        url: '/api/1/posts/' + postId + '/comments'
+      };
+      $http(req).then(proxyCallback(callback));
+    }
+
+    function comments_get(postId, commentId, callback) {
+      var req = {
+        method: 'GET',
+        url: '/api/1/posts/' + postId + '/comments/' + commentId
+      };
+      $http(req).then(proxyCallback(callback));
+    }
+
+    function comments_create(comment, callback) {
+      var req = {
+        method: 'POST',
+        url: '/api/1/posts/' + comment.postId + '/comments',
+        data: comment
+      };
+      $http(req).then(proxyCallback(callback));
+    }
+
+    function comments_update(comment, callback) {
+      var req = {
+        method: 'PUT',
+        url: '/api/1/posts/' + comment.postId + '/comments/' + comment.id,
+        data: post
+      };
+      $http(req).then(proxyCallback(callback));
+    }
+
+    function comments_destroy(postId, commentId, callback) {
+      var req = {
+        method: 'DELETE',
+        url: '/api/1/posts/' + postId + '/comments/' + commentId
+      };
+      $http(req).then(proxyCallback(callback));
+    }
+
     function init() {
       // init api client
     }
@@ -89,6 +131,13 @@ angular.module('app.services', [])
         create: posts_create,
         update: posts_update,
         destroy: posts_destroy
+      },
+      comments: {
+        list: comments_list,
+        get: comments_get,
+        create: comments_create,
+        update: comments_update,
+        destroy: comments_destroy
       }
     };
   }]);

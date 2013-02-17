@@ -22,10 +22,10 @@
   <span>&nbsp;</span>
   <a class="btn btn-primary" href="#/posts/{{post.id}}/edit">Edit</a>
   <span>&nbsp;</span>
-  <a class="btn btn-danger" href="#confimPostDeleteModal" data-toggle="modal">Delete</a>
+  <a class="btn btn-danger" href="#confirmDeletePostModal" data-toggle="modal">Delete</a>
 </div>
 
-<div id="confimPostDeleteModal" class="modal hide fade">
+<div id="confirmDeletePostModal" class="modal hide fade">
   <div class="modal-header">
     <button class="close" data-dismiss="modal">&times;</button>
     <h3>Delete Post</h3>
@@ -35,8 +35,54 @@
   </div>
   <div class="modal-footer">
     <a class="btn" data-dismiss="modal">Nope</a>
-    <a class="btn btn-danger" data-dismiss="modal" ng-click="postDelete()">Yes, I'm sure</a>
+    <a class="btn btn-danger" data-dismiss="modal" ng-click="deletePost()">Yes, I'm sure</a>
   </div>
 </div>
 
+<hr />
 
+<p>{{comments.length}} comments</p>
+
+<table class="table table-striped" ng-show="comments.length">
+  <thead>
+  <tr>
+    <th>Id</th>
+    <th>Content</th>
+    <th>Author</th>
+    <th>Modified</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="comment in comments">
+    <td>{{comment.id}}</a></td>
+    <td>{{comment.content}}</a></td>
+    <td>{{comment.author}}</td>
+    <td>{{comment.modified}}</td>
+    <td><a class="btn btn-danger" data-toggle="modal" href="#confirmDeleteCommentModal" ng-click="selectComment($index)">Delete</a></td>
+  </tr>
+  </tbody>
+</table>
+
+<div id="confirmDeleteCommentModal" class="modal hide fade">
+  <div class="modal-header">
+    <button class="close" data-dismiss="modal">&times;</button>
+    <h3>Delete Comment</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure to delete this comment?</p>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">Nope</a>
+    <a class="btn btn-danger" data-dismiss="modal" ng-click="deleteComment()">Yes, I'm sure</a>
+  </div>
+</div>
+
+<form name="commentForm" class="form form-inline" ng-submit="submitComment()" novalidate>
+  <fieldset>
+    <input type="hidden" name="id" ng-model="comment.id"/>
+    <input type="hidden" name="postId" ng-model="comment.postId"/>
+    <input id="commentAuthorText" type="text" name="author" required placeholder="Author..." ng-model="comment.author" />
+    <textarea id="commentContentText" name="content" placeholder="Content..." ng-model="comment.content"></textarea>
+    <button id="commentSubmitBtn" type="submit" class="btn btn-primary">Submit</button>
+  </fieldset>
+</form>

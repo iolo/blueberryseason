@@ -8,24 +8,63 @@ angular.module('app.controllers', [])
       }
       $scope.posts = data;
     });
-    $scope.show = function (postId) {
-      $location.path('/posts/' + postId);
-    };
   }])
   .controller('postShowCtrl', ['$scope', '$routeParams', '$location', 'api', function ($scope, $routeParams, $location, api) {
     var postId = $routeParams.postId;
+
     api.posts.get(postId, function (err, data) {
       if (err) {
         return console.error(err);
       }
       $scope.post = data;
     });
-    $scope.postDelete = function () {
+
+    $scope.deletePost = function () {
       api.posts.destroy(postId, function (err, data) {
         if (err) {
           return console.error(err);
         }
         $location.path('/posts');
+      });
+    };
+
+    api.comments.list(postId, function (err, data) {
+      if (err) {
+        return console.error(err);
+      }
+      $scope.comments = data;
+    });
+
+    $scope.selectComment = function(index) {
+      $scope.commentIndex = index;
+    }
+
+    $scope.deleteComment = function () {
+      var commentId = $scope.comments[$scope.commentIndex].id;
+      api.comments.destroy(postId, commentId, function (err, data) {
+        if (err) {
+          return console.error(err);
+        }
+        $scope.comments.splice($scope.commentIndex, 1);
+      });
+    };
+
+    $scope.comment = {
+      content: '',
+      author: '',
+      postId: postId
+    };
+    $scope.submitComment = function () {
+      api.comments.create($scope.comment, function (err, data) {
+        if (err) {
+          return console.error(err);
+        }
+        $scope.comments.push(data);
+        $scope.comment = {
+          content: '',
+          author: '',
+          postId: postId
+        };
       });
     };
   }])
@@ -36,7 +75,7 @@ angular.module('app.controllers', [])
       author: ''
     };
     $scope.editOrNew = 'New';
-    $scope.submit = function () {
+    $scope.submitPost = function () {
       api.posts.create($scope.post, function (err, data) {
         if (err) {
           return console.error(err);
@@ -54,7 +93,7 @@ angular.module('app.controllers', [])
       $scope.post = data;
     });
     $scope.editOrNew = 'Edit';
-    $scope.submit = function () {
+    $scope.submitPost = function () {
       api.posts.update($scope.post, function (err, data) {
         if (err) {
           return console.error(err);
