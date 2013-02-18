@@ -19,7 +19,7 @@ function list(req, res) {
 }
 
 function get(req, res) {
-  var postId = req.param('postId');
+  //var postId = req.param('postId');
   var commentId = req.param('commentId');
   commentDao.load(commentId, callbackJsonResponse(res));
 }
