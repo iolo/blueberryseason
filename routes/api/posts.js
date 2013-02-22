@@ -2,57 +2,65 @@
 
 var
   _ = require('underscore'),
-  postDao = require('../../libs/post_dao');
-
-function callbackJsonResponse(res) {
-  return function (err, result) {
-    if (err) {
-      return res.json({error: err});
-    }
-    return res.json(result);
-  };
-}
+  noboard = require('../../libs/noboard');
 
 function list(req, res) {
-  postDao.listWithCommentsCount(callbackJsonResponse(res));
+  noboard.getPostsWithCommentsCount()
+    .then(function (posts) {
+      res.json(posts);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 function get(req, res) {
   var postId = req.param('postId');
-  postDao.load(postId, callbackJsonResponse(res));
+  noboard.posts.load(postId)
+    .then(function (post) {
+      res.json(post);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 function create(req, res) {
-  var post = postDao.createNew(req.body);
-  postDao.save(post, function (err, numRows, insertId) {
-    if (err) {
-      return res.json({error: err});
-    }
-    console.log('posts create:', arguments);
-    postDao.load(insertId, callbackJsonResponse(res));
-  });
+  var post = noboard.posts.createNew(req.body);
+  noboard.posts.save(post, true)
+    .then(function (post) {
+      res.json(post);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 function update(req, res) {
   var postId = req.param('postId');
-  postDao.load(postId, function (err, post) {
-    if (err) {
-      return res.json({error: err});
-    }
-    post = _.defaults(req.body, post);
-    postDao.save(post, function (err, numRows) {
-      if (err) {
-        return res.json({error: err});
-      }
-      console.log('posts update:', arguments);
-      postDao.load(postId, callbackJsonResponse(res));
+  noboard.posts.load(postId)
+    .then(function (post) {
+      post = _.defaults(req.body, post);
+      console.log('update post', post);
+      return noboard.posts.save(post, true);
+    })
+    .then(function (post) {
+      res.json(post);
+    })
+    .fail(function (err) {
+      res.json({error: err});
     });
-  });
 }
 
 function destroy(req, res) {
   var postId = req.param('postId');
-  postDao.destroy(postId, callbackJsonResponse(res));
+  noboard.posts.destroy(postId)
+    .then(function (result) {
+      res.json(result);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 module.exports = {

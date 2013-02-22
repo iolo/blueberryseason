@@ -2,75 +2,92 @@
 
 var
   _ = require('underscore'),
-  postDao = require('../libs/post_dao'),
-  commentDao = require('../libs/comment_dao');
-
-function callbackForJadeResponse(res, view) {
-  return function (err, result) {
-    if (err) {
-      return res.render('error', {error: err});
-    }
-    return res.render(view, {result: result});
-  };
-}
-
-function callbackForRedirect(res, to) {
-  return function (err, result) {
-    if (err) {
-      return res.render('error', {error: err});
-    }
-    return res.redirect(to);
-  };
-}
+  noboard = require('../libs/noboard');
 
 function list(req, res) {
-  postDao.listWithCommentsCount(callbackForJadeResponse(res, 'posts/list'));
+  noboard.getPostsWithCommentsCount()
+    .then(function (posts) {
+      res.render('posts/list', {result: posts});
+    })
+    .fail(function (err) {
+      res.render('error', {error: err});
+
+    });
 }
 
 function show(req, res) {
   var postId = req.param('postId');
-  postDao.load(postId, function (err, post) {
-    if (err) {
+  noboard.posts.load(postId)
+    .then(function (post) {
+      return [post, noboard.getCommentsByPost(postId)];
+    })
+    .spread(function (post, comments) {
+      res.render('posts/show', { post: post, comments: comments });
+    })
+    .fail(function (err) {
       return res.render('error', {error: err});
-    }
-    commentDao.listByPost(postId, function(err, comments) {
-      if (err) {
-        return res.render('error', {error: err});
-      }
-      return res.render('posts/show', { post: post, comments: comments });
     });
-  });
 }
 
 function newForm(req, res) {
-  var post = postDao.createNew();
+  var post = noboard.posts.createNew();
   res.render('posts/form', {result: post});
 }
 
 function editForm(req, res) {
   var postId = req.param('postId');
-  postDao.load(postId, callbackForJadeResponse(res, 'posts/form'));
+  noboard.posts.load(postId)
+    .then(function (post) {
+      res.render('posts/form', {result: post});
+    })
+    .fail(function (err) {
+      res.render('error', {error: err});
+    });
 }
 
 function save(req, res) {
-  var post = _.defaults(req.body, postDao.createNew());
-  postDao.save(post, callbackForRedirect(res, '/posts'));
+  var post = _.defaults(req.body, noboard.posts.createNew());
+  noboard.posts.save(post)
+    .then(function () {
+      res.redirect('/posts');
+    })
+    .fail(function (err) {
+      res.render('error', {error: err});
+    });
 }
 
 function destroy(req, res) {
   var postId = req.param('postId');
-  postDao.destroy(postId, callbackForRedirect(res, '/posts'));
+  noboard.posts.destroy(postId)
+    .then(function () {
+      res.redirect('/posts');
+    })
+    .fail(function (err) {
+      res.render('error', {error: err});
+    });
 }
 
 function save_comment(req, res) {
-  var comment = _.defaults(req.body, commentDao.createNew());
-  commentDao.save(comment, callbackForRedirect(res, '/posts/show?postId=' + comment.postId));
+  var comment = _.defaults(req.body, noboard.comments.createNew());
+  noboard.comments.save(comment)
+    .then(function () {
+      res.redirect('/posts/show?postId=' + comment.postId);
+    })
+    .fail(function (err) {
+      res.render('error', {error: err});
+    });
 }
 
 function destroy_comment(req, res) {
   var postId = req.param('postId');
   var commentId = req.param('commentId');
-  commentDao.destroy(commentId, callbackForRedirect(res, '/posts/show?postId=' + postId));
+  noboard.comments.destroy(commentId)
+    .then(function () {
+      res.redirect('/posts/show?postId=' + postId);
+    })
+    .fail(function (err) {
+      res.render('error', {error: err});
+    });
 }
 
 module.exports = {

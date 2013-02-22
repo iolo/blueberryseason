@@ -2,65 +2,71 @@
 
 var
   _ = require('underscore'),
-  commentDao = require('../../libs/comment_dao');
-
-function callbackJsonResponse(res) {
-  return function (err, result) {
-    if (err) {
-      return res.json({error: err});
-    }
-    return res.json(result);
-  };
-}
+  noboard = require('../../libs/noboard');
 
 function list(req, res) {
   var postId = req.param('postId');
-  commentDao.listByPost(postId, callbackJsonResponse(res));
+  noboard.getCommentsByPost(postId)
+    .then(function (comments) {
+      res.json(comments);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 function get(req, res) {
   //var postId = req.param('postId');
   var commentId = req.param('commentId');
-  commentDao.load(commentId, callbackJsonResponse(res));
+  noboard.comments.load(commentId)
+    .then(function (comment) {
+      res.json(comment);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 function create(req, res) {
   var postId = req.param('postId');
-  var comment = commentDao.createNew(req.body);
+  var comment = noboard.comments.createNew(req.body);
   comment.postId = postId;
-  commentDao.save(comment, function (err, numRows, insertId) {
-    if (err) {
-      return res.json({error: err});
-    }
-    console.log('comments create:', arguments);
-    commentDao.load(insertId, callbackJsonResponse(res));
-  });
+  noboard.comments.save(comment, true)
+    .then(function (comment) {
+      res.json(comment);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 function update(req, res) {
   var postId = req.param('postId');
   var commentId = req.param('commentId');
-
-  commentDao.load(commentId, function (err, comment) {
-    if (err) {
-      return res.json({error: err});
-    }
-    comment = _.defaults(req.body, comment);
-    comment.postId = postId;
-    commentDao.save(comment, function (err, numRows) {
-      if (err) {
-        return res.json({error: err});
-      }
-      console.log('comments update:', arguments);
-      commentDao.load(commentId, callbackJsonResponse(res));
+  noboard.comments.load(commentId)
+    .then(function (comment) {
+      comment = _.defaults(req.body, comment);
+      comment.postId = postId;
+      return noboard.comments.save(comment, true);
+    })
+    .then(function (comment) {
+      res.json(comment);
+    })
+    .fail(function (err) {
+      res.json({error: err});
     });
-  });
 }
 
 function destroy(req, res) {
-  var postId = req.param('postId');
+  //var postId = req.param('postId');
   var commentId = req.param('commentId');
-  commentDao.destroy(commentId, callbackJsonResponse(res));
+  noboard.comments.destroy(commentId)
+    .then(function (result) {
+      res.json(result);
+    })
+    .fail(function (err) {
+      res.json({error: err});
+    });
 }
 
 module.exports = {
