@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap Demo - Dropdowns</title>
+  <meta viewport="width=device-width,initial-scale=1.0"/>
+  <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap-responsive.min.css"/>
+  <link rel="stylesheet" href="../lib/google-code-prettify/prettify.css"/>
+</head>
+<body>
+
+<style>
+</style>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span4">
+      <h2 class="page-title">Dropdown Menu</h2>
+
+      <div class="dropdown clearfix">
+        <ul class="dropdown-menu" style="display: block; position: static; margin-bottom: 5px; width: 180px;">
+          <li><a href="#">New</a></li>
+          <li><a href="#">Open</a></li>
+          <li><a href="#">Save</a></li>
+          <li><a href="#">Save As</a></li>
+          <li class="divider"></li>
+          <li class="dropdown-submenu">
+            <a href="#">Export...</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">PDF</a></li>
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">PNG</a></li>
+            </ul>
+          </li>
+          <li class="divider"></li>
+          <li class="disabled"><a href="#">Print</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Quit</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="span4">
+      <h2 class="page-title">Button Groups</h2>
+
+      <div class="btn-group">
+        <button class="btn">Left</button>
+        <button class="btn">Center</button>
+        <button class="btn">Right</button>
+      </div>
+
+      <div class="btn-toolbar">
+        <div class="btn-group">
+          <button class="btn"><i class="icon-align-left"></i></button>
+          <button class="btn"><i class="icon-align-center"></i></button>
+          <button class="btn"><i class="icon-align-right"></i></button>
+        </div>
+        <button class="btn"><i class="icon-bold"></i></button>
+        <button class="btn"><i class="icon-italic"></i></button>
+      </div>
+
+      <div class="btn-group btn-group-vertical span6">
+        <button class="btn btn-block">Left</button>
+        <button class="btn btn-block">Center</button>
+        <button class="btn btn-block">Right</button>
+      </div>
+    </div>
+    <div class="span4">
+      <h2 class="page-title">Button Dropdowns</h2>
+
+      <p>Button Dropdowns:</p>
+      <div class="btn-group">
+        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Edit <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <a href="#" class="btn btn-large dropdown-toggle" data-toggle="dropdown">Edit <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Edit <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+
+      <p>Split Button Dropdowns:</p>
+      <div class="btn-group">
+        <button class="btn">Edit</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-large">Edit</button>
+        <button class="btn btn-large dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+
+      <p>Dropup:</p>
+
+      <div class="btn-group dropup">
+        <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Edit <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+      <div class="btn-group dropup">
+        <a href="#" class="btn btn-large dropdown-toggle" data-toggle="dropdown">Edit <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+      <div class="btn-group dropup">
+        <button class="btn">Edit</button>
+        <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+      <div class="btn-group dropup">
+        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Undo</a></li>
+          <li class="disabled"><a href="#">Redo</a></li>
+          <li class="divier"></li>
+          <li><a href="#">Cut</a></li>
+          <li><a href="#">Copy</a></li>
+          <li><a href="#">Paste</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--bootstrap -->
+<script src="../lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- code prettify -->
+<script src="../lib/google-code-prettify/prettify.js"></script>
+</body>
+</html>
