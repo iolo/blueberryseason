@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap Demo - Table</title>
+  <meta viewport="width=device-width,initial-scale=1.0"/>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-responsive.min.css"/>
+</head>
+<body>
+
+<style>
+caption { font-size:1.5em; margin:1em; font-weight:bold; }
+</style>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span4">
+      <table>
+        <caption>Vanilla Table</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="span4">
+      <table class="table">
+        <caption>Default Table</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="span4">
+      <table class="table table-striped">
+        <caption>Striped Table</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div><!--.row-->
+  <div class="row-fluid">
+    <div class="span4">
+      <table class="table table-bordered">
+        <caption>Bordered Table</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="span4">
+      <table class="table table-hover">
+        <caption>Hover Table</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="span4">
+      <table class="table table-condensed">
+        <caption>Condensed Table</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div><!--.row-->
+  <div class="row-fluid">
+    <div class="span4">
+      <table class="table table-striped table-bordered table-hover table-condensed">
+        <caption>All-in-One Table</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="span4">
+      <table class="table table-hover">
+        <caption>Table with Styled Rows</caption>
+        <thead>
+          <tr><th>Name</th><th>Class</th><th>Level</th></tr>
+        </thead>
+        <tbody>
+          <tr class="info"><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+          <tr class="warning"><td>Iolo</td><td>Bard</td><td>20</td></tr>
+          <tr class="error"><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+          <tr class="success"><td>Julia</td><td>Thinker</td><td>15</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="span4">
+        <table class="table table-bordered table-condensed">
+          <caption>Table with Spans</caption>
+          <thead>
+            <tr><th class="span6">Name</th><th class="span4">Class</th><th class="span2">Level</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Shamino</td><td>Fighter</td><td>21</td></tr>
+            <tr><td>Iolo</td><td>Bard</td><td>20</td></tr>
+            <tr><td>Dupre</td><td>Paladin</td><td>18</td></tr>
+            <tr><td>Julia</td><td>Thinker</td><td>15</td></tr>
+          </tbody>
+        </table>
+    </div>
+  </div><!--.row-->
+</div>
+
+<!--bootstrap -->
+<script src="/lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

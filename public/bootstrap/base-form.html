@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap Demo - Form</title>
+  <meta viewport="width=device-width,initial-scale=1.0"/>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap-responsive.min.css"/>
+</head>
+<body>
+
+<style>
+caption { font-size:1.5em; margin:1em; }
+</style>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <form class="span6 form">
+      <legend>Default Form</legend>
+      <label>Username</label>
+      <input type="text" class="span12" placeholder="Username">
+      <label>Password</label>
+      <input type="text" class="span12" placeholder="Password">
+      <label>Class</label>
+      <select class="span12">
+        <option selected>Choose One:</option>
+        <option>Fighter</option>
+        <option>Bard</option>
+        <option>Paladin</option>
+        <option>Thinker</option>
+      </select>
+      <label>Race</label>
+      <label class="radio"><input name="race" type="radio" />Human</label>
+      <label class="radio"><input name="race" type="radio" />Elf</label>
+      <label class="radio"><input name="race" type="radio" />Dwarf</label>
+      <label class="checkbox"><input type="checkbox" />Remember Me</label>
+      <label>Message</label>
+      <textarea name="message" id="message" class="input-large span12" rows="3"></textarea>
+      <div class="form-actions">
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary">Ok</button>
+          <button type="reset" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+    </form>
+    <form class="span6 form form-horizontal">
+      <legend>Horizontal Form</legend>
+      <div class="control-group">
+        <label class="control-label">Username</label>
+        <div class="controls">
+          <input type="text" class="span12" placeholder="Username">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Password</label>
+        <div class="controls">
+          <input type="text" class="span12" placeholder="Password">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Class</label>
+        <div class="controls">
+          <select class="span12">
+            <option selected>Choose One:</option>
+            <option>Fighter</option>
+            <option>Bard</option>
+            <option>Paladin</option>
+            <option>Thinker</option>
+          </select>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Race</label>
+        <div class="controls">
+          <label class="radio"><input name="race" type="radio" />Human</label>
+          <label class="radio"><input name="race" type="radio" />Elf</label>
+          <label class="radio"><input name="race" type="radio" />Dwarf</label>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
+          <label class="checkbox"><input type="checkbox" />Remember Me</label>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label">Message</label>
+        <div class="controls">
+          <textarea name="message" id="message" class="input-large span12" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="form-actions clearfix">
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary">Ok</button>
+          <button type="reset" class="btn btn-danger">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div><!--.row-->
+  <div class="row-fluid">
+    <form class="span6 form form-inline">
+      <legend>Inline Form</legend>
+      <input type="text" class="input-small" placeholder="Username" />
+      <input type="text" class="input-small" placeholder="Password" />
+      <label class="checkbox"><input type="checkbox" />Remember Me</label>
+      <button type="submit" class="btn btn-primary btn-small">Ok</button>
+    </form>
+    <form class="span6 form form-horizontal">
+      <legend>Form with Validation States</legend>
+      <div class="control-group info">
+        <label class="control-label">Info</label>
+        <div class="controls">
+          <input type="text" placeholder="Info" />
+          <span class="help-inline">info</span>
+       </div>
+      </div>
+      <div class="control-group warning">
+        <label class="control-label">Warning</label>
+        <div class="controls">
+          <input type="text" placeholder="Warning" />
+          <span class="help-inline">warning</span>
+       </div>
+      </div>
+      <div class="control-group error">
+        <label class="control-label">Error</label>
+        <div class="controls">
+          <input type="text" placeholder="Error" />
+          <span class="help-inline">error</span>
+       </div>
+      </div>
+      <div class="control-group success">
+        <label class="control-label">Success</label>
+        <div class="controls">
+          <input type="text" placeholder="Success" />
+          <span class="help-inline">succsss</span>
+       </div>
+      </div>
+    </form>
+  </div><!--.row-->
+</div>
+
+<!--bootstrap -->
+<script src="/lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

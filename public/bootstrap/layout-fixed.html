@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap Demo - Fixed Layout</title>
+  <meta viewport="width=device-width,initial-scale=1.0"/>
+  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<style>
+#main { background:red; }
+#main div { min-height:100px; }
+#side { background:green; }
+#banner { background:cyan; }
+#col1, #col2, #col3 { background:yellow; }
+</style>
+<div id="main" class="container">
+  <div class="row">
+    <div id="side" class="span3">
+      <p class="visible-phone">phone</p>
+      <p class="visible-tablet">tablet</p>
+      <p class="visible-desktop">desktop</p>
+      <p class="hidden-phone">not phone</p>
+      <p class="hidden-tablet">not tablet</p>
+      <p class="hidden-desktop">not desktop</p>
+    </div>
+    <div class="span9">
+      <div class="row">
+        <div id="banner" class="span9">span9</div>
+      </div>
+      <div class="row">
+        <div id="col1" class="span3">span3</div>
+        <div id="col2" class="span3">span3</div>
+        <div id="col3" class="span3">span3</div>
+      </div>
+      <div class="row">
+        <div id="banner" class="span12">span12(broken)</div>
+      </div>
+      <div class="row">
+        <div id="col1" class="span4">span4(broken)</div>
+        <div id="col2" class="span4">span4(broken)</div>
+        <div id="col3" class="span4">span4(broken)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- bootstrap -->
+<script src="/lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
