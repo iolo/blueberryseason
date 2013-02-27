@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap Demo - Alert</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap-responsive.min.css"/>
+  <link rel="stylesheet" href="../lib/google-code-prettify/prettify.css"/>
+</head>
+<body>
+
+<style>
+</style>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span4">
+      <h2 class="page-title">Alert</h2>
+
+      <p>Default Alert</p>
+      <div class="alert">
+        <p>The quick brown fox jumps over the lazy dog</p>
+      </div>
+
+      <p>Default Alert with Close Button</p>
+      <div class="alert">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <p>The quick brown fox jumps over the lazy dog</p>
+      </div>
+
+      <p>Error Alert</p>
+      <div class="alert alert-error">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <p>The quick brown fox jumps over the lazy dog</p>
+      </div>
+
+      <p>Success Alert</p>
+      <div class="alert alert-success">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <p>The quick brown fox jumps over the lazy dog</p>
+      </div>
+
+      <p>Success Info</p>
+      <div class="alert alert-info">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <p>The quick brown fox jumps over the lazy dog</p>
+      </div>
+
+      <p>Alert Block</p>
+      <div class="alert alert-block">
+        <button class="close" data-dismiss="alert">&times;</button>
+        <h4>Alert!</h4>
+        <p>The quick brown fox jumps over the lazy dog</p>
+      </div>
+    </div>
+    <div class="span4">
+      <h2 class="page-title">Tooltip</h2>
+
+      <p>Tooltip on Top</p>
+      <p>The quick brown <a href="#" data-toggle="tooltip" title="wild animals">fox</a> jumps over the lazy <a href="#" data-toggle="tooltip" title="pet">dog</a></p>
+
+      <p>Tooltip on Bottom</p>
+      <p>The quick brown <a href="#" data-toggle="tooltip" data-placement="bottom" title="wild animals">fox</a> jumps over the lazy <a href="#" data-toggle="tooltip" data-placement="bottom" title="pet">dog</a></p>
+
+      <p>Tooltip on Left</p>
+      <p>The quick brown <a href="#" data-toggle="tooltip" data-placement="left" title="wild animals">fox</a> jumps over the lazy <a href="#" data-toggle="tooltip" data-placement="left" title="pet">dog</a></p>
+
+      <p>Tooltip on Right</p>
+      <p>The quick brown <a href="#" data-toggle="tooltip" data-placement="right" title="wild animals">fox</a> jumps over the lazy <a href="#" data-toggle="tooltip" data-placement="right" title="pet">dog</a></p>
+    </div>
+    <div class="span4">
+      <h2 class="page-title">Popover</h2>
+
+      <p>Popover on Top</p>
+      <p>The quick brown <a href="#" data-toggle="popover" title="wild animals" data-content="fox is blah blah...">fox</a> jumps over the lazy <a href="#" data-toggle="popover" title="pet" data-content="dog is blah blah...">dog</a></p>
+
+      <p>Popover on Bottom</p>
+      <p>The quick brown <a href="#" data-toggle="popover" data-placement="bottom" title="wild animals" data-content="fox is blah blah...">fox</a> jumps over the lazy <a href="#" data-toggle="popover" data-placement="bottom" title="pet" data-content="dog is blah blah...">dog</a></p>
+
+      <p>Popover on Left</p>
+      <p>The quick brown <a href="#" data-toggle="popover" data-placement="left" title="wild animals" data-content="fox is blah blah...">fox</a> jumps over the lazy <a href="#" data-toggle="popover" data-placement="left" title="pet" data-content="fox is blah blah...">dog</a></p>
+
+      <p>Popover on Right</p>
+      <p>The quick brown <a href="#" data-toggle="popover" data-placement="right" title="wild animals" data-content="fox is blah blah...">fox</a> jumps over the lazy <a href="#" data-toggle="popover" data-placement="right" title="pet" data-content="fox is blah blah...">dog</a></p>
+    </div>
+  </div>
+</div>
+
+<!--bootstrap -->
+<script src="../lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- code prettify -->
+<script src="../lib/google-code-prettify/prettify.js"></script>
+<script>
+$(function () {
+  $('a[data-toggle=tooltip]').each(function() { $(this).tooltip(); });
+  $('a[data-toggle=popover]').each(function() { $(this).popover(); });
+});
+</script>
+</body>
+</html>
