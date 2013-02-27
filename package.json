@@ -1,11 +1,11 @@
 {
-  "name": "noboard",
+  "name": "blueberryseason",
   "version": "0.0.1",
-  "description":"simple discussion forum for benchmark",
+  "description":"simple discussion forum(aka BBS; bullentin board systm) for benchmark",
   "author":"Dongsu Jang <iolothebard@gmail.com>",
   "repository":{
     "type": "git",
-    "url": "git://git@github.com/iolo/node-noboard.git"
+    "url": "git://git@github.com/iolo/blueberryseason.git"
   },
   "license": "MIT",
   "engine":{

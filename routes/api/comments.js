@@ -2,11 +2,11 @@
 
 var
   _ = require('underscore'),
-  noboard = require('../../libs/noboard');
+  bbs = require('../../libs/bbs');
 
 function list(req, res) {
   var postId = req.param('postId');
-  noboard.getCommentsByPost(postId)
+  bbs.getCommentsByPost(postId)
     .then(function (comments) {
       res.json(comments);
     })
@@ -18,7 +18,7 @@ function list(req, res) {
 function get(req, res) {
   //var postId = req.param('postId');
   var commentId = req.param('commentId');
-  noboard.comments.load(commentId)
+  bbs.comments.load(commentId)
     .then(function (comment) {
       res.json(comment);
     })
@@ -29,9 +29,9 @@ function get(req, res) {
 
 function create(req, res) {
   var postId = req.param('postId');
-  var comment = noboard.comments.createNew(req.body);
+  var comment = bbs.comments.createNew(req.body);
   comment.postId = postId;
-  noboard.comments.save(comment, true)
+  bbs.comments.save(comment, true)
     .then(function (comment) {
       res.json(comment);
     })
@@ -43,11 +43,11 @@ function create(req, res) {
 function update(req, res) {
   var postId = req.param('postId');
   var commentId = req.param('commentId');
-  noboard.comments.load(commentId)
+  bbs.comments.load(commentId)
     .then(function (comment) {
       comment = _.defaults(req.body, comment);
       comment.postId = postId;
-      return noboard.comments.save(comment, true);
+      return bbs.comments.save(comment, true);
     })
     .then(function (comment) {
       res.json(comment);
@@ -60,7 +60,7 @@ function update(req, res) {
 function destroy(req, res) {
   //var postId = req.param('postId');
   var commentId = req.param('commentId');
-  noboard.comments.destroy(commentId)
+  bbs.comments.destroy(commentId)
     .then(function (result) {
       res.json(result);
     })

@@ -2,10 +2,10 @@
 
 var
   _ = require('underscore'),
-  noboard = require('../../libs/noboard');
+  bbs = require('../../libs/bbs');
 
 function list(req, res) {
-  noboard.getPostsWithCommentsCount()
+  bbs.getPostsWithCommentsCount()
     .then(function (posts) {
       res.json(posts);
     })
@@ -16,7 +16,7 @@ function list(req, res) {
 
 function get(req, res) {
   var postId = req.param('postId');
-  noboard.posts.load(postId)
+  bbs.posts.load(postId)
     .then(function (post) {
       res.json(post);
     })
@@ -26,8 +26,8 @@ function get(req, res) {
 }
 
 function create(req, res) {
-  var post = noboard.posts.createNew(req.body);
-  noboard.posts.save(post, true)
+  var post = bbs.posts.createNew(req.body);
+  bbs.posts.save(post, true)
     .then(function (post) {
       res.json(post);
     })
@@ -38,11 +38,11 @@ function create(req, res) {
 
 function update(req, res) {
   var postId = req.param('postId');
-  noboard.posts.load(postId)
+  bbs.posts.load(postId)
     .then(function (post) {
       post = _.defaults(req.body, post);
       console.log('update post', post);
-      return noboard.posts.save(post, true);
+      return bbs.posts.save(post, true);
     })
     .then(function (post) {
       res.json(post);
@@ -54,7 +54,7 @@ function update(req, res) {
 
 function destroy(req, res) {
   var postId = req.param('postId');
-  noboard.posts.destroy(postId)
+  bbs.posts.destroy(postId)
     .then(function (result) {
       res.json(result);
     })

@@ -1,7 +1,7 @@
-NoBoard
-=======
+BlueBerrySeason
+===============
 
-NoBoard is a minimal discussion forum(aka board) to demonstrate various webapp architectures.
+BlueBerrySeason is a minimal discussion forum(aka bulletin board system; BBS) to demonstrate various webapp architectures.
 
 Traditional Webapp
 ------------------

@@ -25,15 +25,18 @@ app.configure('development', function () {
   app.use(express.errorHandler());
 });
 
-app.get('/posts', routes.posts.list);
-app.get('/posts/show', routes.posts.show);
-app.get('/posts/new', routes.posts.newForm);
-app.get('/posts/edit', routes.posts.editForm);
-app.post('/posts/save', routes.posts.save);
-app.get('/posts/delete', routes.posts.destroy);
-app.post('/posts/save_comment', routes.posts.save_comment);
-app.get('/posts/delete_comment', routes.posts.destroy_comment);
+// classic webapp with express
+app.get('/express/list', routes.express.list);
+app.get('/express/show', routes.express.show);
+app.get('/express/new', routes.express.newForm);
+app.get('/express/edit', routes.express.editForm);
+app.post('/express/save', routes.express.save);
+app.get('/express/delete', routes.express.destroy);
+app.post('/express/save_comment', routes.express.save_comment);
+app.get('/express/delete_comment', routes.express.destroy_comment);
+app.get('/express/', routes.express.list);
 
+// restful api
 app.get('/api/1/posts', routes.api.posts.list);
 app.post('/api/1/posts', routes.api.posts.create);
 app.get('/api/1/posts/:postId', routes.api.posts.get);
@@ -46,5 +49,5 @@ app.put('/api/1/posts/:postId/comments/:commentId', routes.api.comments.update);
 app.del('/api/1/posts/:postId/comments/:commentId', routes.api.comments.destroy);
 
 http.createServer(app).listen(config.express.port, config.express.host, function () {
-  console.log("NoBoard server listening on " + config.express.host + ":" + config.express.port);
+  console.log("BlueBerrySeason server listening on " + config.express.host + ":" + config.express.port);
 });

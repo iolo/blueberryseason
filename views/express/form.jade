@@ -4,11 +4,11 @@ doctype 5
 html
   head
     meta(charset="utf8")
-    title NoBoard with Express
+    title BlueBerrySeason with Express
   body
-    h1 NoBoard - post - #{editOrNew}
+    h1 BlueBerrySeason - Post - #{editOrNew}
 
-    form#postForm(method="POST",action="/posts/save")
+    form#postForm(method="POST",action="save")
 
       input#postIdText(type="hidden",name="id",value="#{post.id}")
 
@@ -32,4 +32,4 @@ html
         button(type="reset") Reset
 
     div
-      a(href="/posts") Back to List
+      a(href="list") Back to List

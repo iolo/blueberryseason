@@ -2,9 +2,9 @@ doctype 5
 html
   head
     meta(charset="utf8")
-    title NoBoard with Express
+    title BlueBerrySeason with Express
   body
-    h1 NoBoard - Post - #{post.id}
+    h1 BlueBerrySeason - Post - #{post.id}
 
     dl
       dt Created:
@@ -34,9 +34,9 @@ html
             td #{comment.author}
             td #{comment.modified}
             td
-              a(href="/posts/delete_comment?postId=#{post.id}&commentId=#{comment.id}",onclick="return confirm('Are you sure to delete this comment?')") Delete
+              a(href="delete_comment?postId=#{post.id}&commentId=#{comment.id}",onclick="return confirm('Are you sure to delete this comment?')") Delete
 
-    form#commentForm(method="POST",action="/posts/save_comment")
+    form#commentForm(method="POST",action="save_comment")
 
       input#commentPostIdText(type="hidden",name="postId",value="#{post.id}")
 
@@ -50,8 +50,8 @@ html
       button(type="reset") Reset
 
     div
-      a(href="/posts") Back to List
+      a(href="list") Back to List
       span &nbsp;
-      a(href="/posts/edit?postId=#{post.id}") Edit
+      a(href="edit?postId=#{post.id}") Edit
       span &nbsp;
-      a(href="/posts/delete?postId=#{post.id}",onclick="return confirm('Are you sure to delete this post?')") Delete
+      a(href="delete?postId=#{post.id}",onclick="return confirm('Are you sure to delete this post?')") Delete

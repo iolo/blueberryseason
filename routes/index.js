@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-  posts: require('./posts'),
+  express: require('./express'),
   api: require('./api')
 }
