@@ -4,9 +4,10 @@ var config = require('./config'),
   noredis = require('noredis'),
   nobatis = require('nobatis'),
   dataSource = nobatis.createDataSource(config.nobatis),
-  express = require('express'),
   http = require('http'),
   path = require('path'),
+  express = require('express'),
+  resource = require('express-resource'),
   routes = require('./routes'),
   app = express();
 
@@ -37,16 +38,10 @@ app.get('/express/delete_comment', routes.express.destroy_comment);
 app.get('/express/', routes.express.list);
 
 // restful api
-app.get('/api/1/posts', routes.api.posts.list);
-app.post('/api/1/posts', routes.api.posts.create);
-app.get('/api/1/posts/:postId', routes.api.posts.get);
-app.put('/api/1/posts/:postId', routes.api.posts.update);
-app.del('/api/1/posts/:postId', routes.api.posts.destroy);
-app.get('/api/1/posts/:postId/comments', routes.api.comments.list);
-app.post('/api/1/posts/:postId/comments', routes.api.comments.create);
-app.get('/api/1/posts/:postId/comments/:commentId', routes.api.comments.get);
-app.put('/api/1/posts/:postId/comments/:commentId', routes.api.comments.update);
-app.del('/api/1/posts/:postId/comments/:commentId', routes.api.comments.destroy);
+var api = express();
+app.use('/api/1', api);
+api.resource('posts', routes.api.posts, { load: routes.api.posts.load })
+  .add(api.resource('comments', routes.api.comments, { load: routes.api.comments.load }));
 
 http.createServer(app).listen(config.express.port, config.express.host, function () {
   console.log("BlueBerrySeason server listening on " + config.express.host + ":" + config.express.port);
